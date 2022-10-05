@@ -14,7 +14,7 @@ app.config.from_object('config')
 db.init_app(app)
 migrate = Migrate(app,db)
 
-# app.register_blueprint(chore_bp, url_prefix='/chore')
+app.register_blueprint(chore_bp, url_prefix='/chore')
 
 
 if __name__ == '__main__':

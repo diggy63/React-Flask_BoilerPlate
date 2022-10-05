@@ -29,16 +29,22 @@ def updateChore(id):
 
 def updateDone(id):
     chore = Chore.query.get(id)
-    print(chore)
+    print(chore.done, 'chore')
     if chore.done:
+        print('here')
         chore.done = False
     else:
+        print('here in true')
         chore.done = True
     db.session.commit()
+    print(chore.done)
     return formatChore(chore)
 
 def deleteChore(id):
     chore = Chore.query.get(id)
+    db.session.delete(chore)
+    db.session.commit()
+    return jsonify({'action':'delte successful'})
     if chore:
         db.session.delete(chore)
         db.session.commit()
