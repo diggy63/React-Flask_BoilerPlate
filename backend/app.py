@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import datetime
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
+import os
 
 app = Flask(__name__, static_url_path='', static_folder='../frontend/build')
 CORS(app)
@@ -16,7 +17,6 @@ app.config['SQLALCHEMY_DATABASE_URI']="postgresql://postgres:Husky63!!@localhost
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-ma = Marshmallow(app)
 
 class Chore(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,17 +26,14 @@ class Chore(db.Model):
     
     def __init__(self, chore, done):
         self.chore = chore
-    
-class ChoreSchema(ma.Schema):
-    class Meta:
-        feilds = ('id','title','body','date')
-
-chore_schema = ChoreSchema()
-chores_schema = ChoreSchema(many=True)
 
 @app.route('/get', methods = ['GET'])
 def index():
-    allChore = Chore.query.all()
+    allChore = Chore.query.order_by(Chore.id).all()
+    # def myFunc(e):
+    #     return e['id']
+    # allChore.sort(key=myFunc)
+    print(allChore)
     return formatAllChores(allChore)
 
 @app.route('/get/<id>/', methods = ['GET'])
@@ -46,6 +43,7 @@ def getOne(id):
 
 @app.route('/add', methods = ['POST'])
 def add_chore():
+    print(request)
     chore = request.json['chore']
     done = False
     newChore = Chore(chore,done)
@@ -57,12 +55,20 @@ def add_chore():
 def update_chore(id):
     chore = Chore.query.get(id)
     uChore = request.json['chore']
-    done = request.json['done']
+    print(uChore)
     chore.chore = uChore
-    chore.done = done
-    
     db.session.commit()
-    
+    return formatChore(chore)
+
+@app.route('/updatedone/<id>/', methods = ['PUT'])
+def update_done(id):
+    chore = Chore.query.get(id)
+    print(chore)
+    if chore.done:
+        chore.done = False
+    else:
+        chore.done = True
+    db.session.commit()
     return formatChore(chore)
 
 @app.route('/delete/<id>/', methods = ['DELETE'])
