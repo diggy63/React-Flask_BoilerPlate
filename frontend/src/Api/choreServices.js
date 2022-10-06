@@ -1,5 +1,5 @@
 export function getChores() {
-  return fetch("/get", {
+  return fetch("chore/get", {
     method: "GET",
     headers: {
       "Content-Type": "applications/json",
@@ -12,7 +12,7 @@ export function getChores() {
 }
 
 export function deleteChore(id){
-   return fetch(`/delete/${id}`,{
+   return fetch(`chore/delete/${id}`,{
     method: "DELETE",
     headers:{
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export function deleteChore(id){
 }
 
 export function addToChore(chore){
-  return fetch(`/add`,{
+  return fetch(`chore/add`,{
    method: "POST",
    body: JSON.stringify(chore),
    headers:{
@@ -37,7 +37,7 @@ export function addToChore(chore){
 }
 
 export function updateChore(chore,id){
-  return fetch(`/update/${id}`,{
+  return fetch(`chore/update/${id}`,{
    method: "PUT",
    body: JSON.stringify(chore),
    headers:{
@@ -50,7 +50,7 @@ export function updateChore(chore,id){
 }
 
 export function updateToggleDone(id){
-  return fetch(`/updatedone/${id}`,{
+  return fetch(`chore/updatedone/${id}`,{
    method: "PUT",
    body: JSON.stringify({}),
    headers:{
