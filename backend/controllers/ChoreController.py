@@ -9,7 +9,6 @@ def getAll():
     return formatAllChores(allChore)
 
 def addChore():
-    print(request)
     chore = request.json['chore']
     done = False
     newChore = Chore(chore,done)
@@ -20,26 +19,21 @@ def addChore():
 def updateChore(id):
     chore = Chore.query.get(id)
     uChore = request.json['chore']
-    print(uChore)
     chore.chore = uChore
     db.session.commit()
     return formatChore(chore)
 
 def updateDone(id):
     chore = Chore.query.get(id)
-    print(chore.done, 'chore')
     if chore.done:
-        print('here')
         chore.done = False
     else:
-        print('here in true')
         chore.done = True
     db.session.commit()
     print(chore.done)
     return formatChore(chore)
 
 def deleteChore(id):
-    print(id)
     chore = Chore.query.get(id)
     if chore:
         db.session.delete(chore)

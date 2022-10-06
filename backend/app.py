@@ -21,7 +21,6 @@ migrate = Migrate(app,db)
 app.register_blueprint(chore_bp, url_prefix='/chore')
 
 @app.route('/')
-@cross_origin()
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
