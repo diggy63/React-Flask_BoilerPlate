@@ -3,6 +3,10 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 from models.Chore import db
 from routes.chore_bp import chore_bp

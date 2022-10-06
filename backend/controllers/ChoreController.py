@@ -1,8 +1,6 @@
-import sys
-from flask import render_template, redirect, url_for, request, abort, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from flask import request, jsonify
 
-db = SQLAlchemy()
+from models.Chore import db
 
 from models.Chore import Chore
 
@@ -41,10 +39,8 @@ def updateDone(id):
     return formatChore(chore)
 
 def deleteChore(id):
+    print(id)
     chore = Chore.query.get(id)
-    db.session.delete(chore)
-    db.session.commit()
-    return jsonify({'action':'delte successful'})
     if chore:
         db.session.delete(chore)
         db.session.commit()

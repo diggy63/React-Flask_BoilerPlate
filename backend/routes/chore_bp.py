@@ -1,8 +1,6 @@
 from flask import render_template, redirect, url_for, request, abort, jsonify, Blueprint
-from flask_sqlalchemy import SQLAlchemy
 
 from controllers.ChoreController import getAll, addChore, updateChore,  updateDone, deleteChore
-db = SQLAlchemy()
 
 from models.Chore import Chore
 
