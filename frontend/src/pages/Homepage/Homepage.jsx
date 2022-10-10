@@ -1,5 +1,7 @@
 import ListGroup from "react-bootstrap/ListGroup";
 
+import "./Homepage.css"
+
 import Chore from "../../Componenet/Chore/Chore";
 import AddChore from "../../Componenet/AddChore/AddChore";
 
@@ -24,14 +26,15 @@ export default function Homepage({
     );
   });
   return (
-    <>
-      <h1>Homepage</h1>
+      <div className="todoList">
       <ListGroup>
+        <div className="todo">
         <ListGroup.Item>
           <AddChore addChore={addChore} />
         </ListGroup.Item>
         {choreShow}
+        </div>
       </ListGroup>
-    </>
+      </div>
   );
 }

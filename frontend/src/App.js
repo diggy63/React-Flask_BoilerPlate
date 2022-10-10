@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
+import Header from "./Componenet/Header/Header";
 import * as choreServices from "../src/Api/choreServices";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header/>
       <div className="mainContain">
         <Homepage
           chores={chores}
