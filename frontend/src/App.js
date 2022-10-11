@@ -33,7 +33,6 @@ function App() {
     getAll()
   }
   async function handleLogin(info){
-    console.log(info)
     const login = await authServices.login(info)
     console.log(login)
   }

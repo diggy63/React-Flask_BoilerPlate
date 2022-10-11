@@ -1,15 +1,4 @@
-// export function getChores() {
-//     return fetch("chore/get", {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "applications/json",
-//       },
-//     })
-//       .then((resp) =>{
-//           if(resp.ok) return resp.json();
-//           throw new Error('could not find chores')
-//       })
-//   }
+import tokenServices from "../Utils/tokenServices";
 
 export function signup(info) {
   console.log(info);
@@ -20,6 +9,7 @@ export function signup(info) {
       "Content-Type": "application/json",
     },
   }).then((resp) => {
+    console.log(resp)
     if (resp.ok) return resp.json();
     throw new Error("could sign up");
   });
@@ -35,31 +25,8 @@ export function login(info) {
   }).then((resp) => {
     if (resp.ok) return resp.json();
     throw new Error("could not login");
-  });
+  }).then((data) =>{
+    tokenServices.setToken(data.access_token)
+  })
 }
 
-//   export function updateChore(chore,id){
-//     return fetch(`chore/update/${id}`,{
-//      method: "PUT",
-//      body: JSON.stringify(chore),
-//      headers:{
-//        "Content-Type": "application/json",
-//      }
-//     }).then((resp) =>{
-//        if(resp.ok) return resp.json();
-//        throw new Error('could not update chore')
-//     })
-//   }
-
-//   export function updateToggleDone(id){
-//     return fetch(`chore/updatedone/${id}`,{
-//      method: "PUT",
-//      body: JSON.stringify({}),
-//      headers:{
-//        "Content-Type": "application/json",
-//      }
-//     }).then((resp) =>{
-//        if(resp.ok) return resp.json();
-//        throw new Error('could not toggle done')
-//     })
-//   }

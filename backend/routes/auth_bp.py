@@ -2,7 +2,6 @@ from flask import render_template, redirect, url_for, request, abort, jsonify, B
 
 from controllers.AuthController import login, signup, logout
 
-from models.Chore import Chore
 
 auth_bp = Blueprint('auth_bp', __name__)
 

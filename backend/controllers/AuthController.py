@@ -1,8 +1,7 @@
-from hashlib import new
 from flask import request, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user
 from app import db
+from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
 from models.User import User
 
@@ -14,11 +13,12 @@ def login():
     user = User.query.filter_by(email=email).first()
     
     if not user or not check_password_hash(user.password, password):
+        print('not auth')
         return jsonify({'error':'login error check email or password'})
-    
-    login_user(user)
-    
-    return jsonify({'user':user.name})
+
+    access_token = create_access_token(identity=user.name)
+    response = {"access_token":access_token}
+    return response
 
 
 def signup():
