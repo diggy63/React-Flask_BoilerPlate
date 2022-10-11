@@ -8,8 +8,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 db = SQLAlchemy()
+
+from models.User import User
 
 from routes.chore_bp import chore_bp
 from routes.auth_bp import auth_bp
@@ -18,6 +19,17 @@ app = Flask(__name__, static_folder='../frontend/build', static_url_path='')
 CORS(app)
 app.config.from_object('config')
 app.config['SECRET_KEY'] = 'diggy'
+
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+    
+
+
 
 db.init_app(app)
 
