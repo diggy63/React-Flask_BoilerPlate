@@ -3,6 +3,7 @@ import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
 import Header from "./Componenet/Header/Header";
 import * as choreServices from "../src/Api/choreServices";
+import * as authServices from '../src/Api/authServices'
 
 function App() {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -12,7 +13,6 @@ function App() {
   }, []);
   async function getAll() {
     const allC = await choreServices.getChores();
-    console.log(allC);
     setChores(allC);
   }
   async function handleChoreDelete(id) {
@@ -32,10 +32,20 @@ function App() {
     const toggle = await choreServices.updateToggleDone(id)
     getAll()
   }
+  async function handleLogin(info){
+    console.log(info)
+    const login = await authServices.login(info)
+    console.log(login)
+  }
+  async function handleSignup(info){
+    console.log(info)
+    const signup = await authServices.signup(info)
+    console.log(signup)
+  }
 
   return (
     <div className="App">
-      <Header/>
+      <Header handleLogin={handleLogin} handleSignup={handleSignup}/>
       <div className="mainContain">
         <Homepage
           chores={chores}
