@@ -1,6 +1,6 @@
 from flask import request, jsonify
 
-from models.Chore import db
+from app import db
 
 from models.Chore import Chore
 
