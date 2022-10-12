@@ -3,18 +3,30 @@ from flask import request, jsonify
 from app import db
 
 from models.Chore import Chore
+from models.User import User
 
-def getAll():
-    allChore = Chore.query.order_by(Chore.id).all()
-    return formatAllChores(allChore)
+def getAll(id):
+    user = User.query.get(id)
+    chores = user.chores
+    newC = []
+    for c in chores:
+        c = c.serialize()
+        newC.append(c)
+    def getId(c):
+        return c.get('id')
+    newC.sort(key=getId)
+    return jsonify(newC)
 
-def addChore():
+def addChore(id):
     chore = request.json['chore']
     done = False
     newChore = Chore(chore,done)
+    newChore.user_id = id
     db.session.add(newChore)
     db.session.commit()
-    return formatChore(newChore)
+    newChore = newChore.serialize()
+    print(newChore)
+    return newChore
 
 def updateChore(id):
     chore = Chore.query.get(id)

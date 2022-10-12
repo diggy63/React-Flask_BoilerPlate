@@ -1,14 +1,19 @@
-export function getChores() {
-  return fetch("chore/get", {
-    method: "GET",
-    headers: {
-      "Content-Type": "applications/json",
-    },
-  })
-    .then((resp) =>{
-        if(resp.ok) return resp.json();
-        throw new Error('could not find chores')
+export function getChores(id) {
+  console.log(id)
+  if(id){
+    return fetch(`chore/get/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "applications/json",
+      },
     })
+      .then((resp) =>{
+          if(resp.ok) return resp.json();
+          throw new Error('could not find chores')
+      })
+  }else{
+    return []
+  }
 }
 
 export function deleteChore(id){
@@ -23,8 +28,9 @@ export function deleteChore(id){
    })
 }
 
-export function addToChore(chore){
-  return fetch(`chore/add`,{
+export function addToChore(chore, user){
+  console.log(chore,user)
+  return fetch(`chore/add/${user.id}`,{
    method: "POST",
    body: JSON.stringify(chore),
    headers:{

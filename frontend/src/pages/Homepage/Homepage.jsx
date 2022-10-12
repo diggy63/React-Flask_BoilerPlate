@@ -28,15 +28,20 @@ export default function Homepage({
   });
   return (
       <div className="todoList">
-      <ListGroup>
+        {user ? 
+        (<ListGroup>
         
-        <div className="todo">
-        <ListGroup.Item>
-          <AddChore addChore={addChore} />
-        </ListGroup.Item>
-        {choreShow}
-        </div>
-      </ListGroup>
+          <div className="todo">
+          <ListGroup.Item>
+            <AddChore addChore={addChore} />
+          </ListGroup.Item>
+          {choreShow}
+          </div>
+        </ListGroup>) 
+        : 
+        (<h1>Must Log in or Sign Up use list</h1>)
+        }
+      
       </div>
   );
 }

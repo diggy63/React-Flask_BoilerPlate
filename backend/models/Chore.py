@@ -18,5 +18,6 @@ class Chore(db.Model):
             'id': self.id,
             'chore': self.chore,
             'done': self.done,
-            'date': self.date
+            'date': self.date,
+            'user_id': self.user_id
         }

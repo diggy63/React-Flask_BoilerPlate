@@ -12,10 +12,11 @@ function App() {
   const [user, setUser] = useState('')
   useEffect(() => {
     findUser()
-    getAll();
   }, []);
+  
   async function getAll() {
-    const allC = await choreServices.getChores();
+    const allC = await choreServices.getChores(user.id);
+    console.log(allC)
     setChores(allC);
   }
   async function handleChoreDelete(id) {
@@ -23,7 +24,7 @@ function App() {
     getAll();
   }
   async function addChore(change) {
-    const added = await choreServices.addToChore(change);
+    const added = await choreServices.addToChore(change, user);
     getAll();
   }
   async function handleChoreUpdate(chore, id) {
@@ -62,8 +63,10 @@ function App() {
 
   async function findUser(){
     const user = await userServices.getUser()
-    console.log(user)
     setUser(user)
+    const allC = await choreServices.getChores(user.id);
+    console.log(allC)
+    setChores(allC)
   }
   return (
     <div className="App">
