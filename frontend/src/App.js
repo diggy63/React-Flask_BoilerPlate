@@ -8,6 +8,7 @@ import * as authServices from '../src/Api/authServices'
 function App() {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [chores, setChores] = useState([]);
+  const [user, setUser] = useState('')
   useEffect(() => {
     getAll();
   }, []);
@@ -34,7 +35,8 @@ function App() {
   }
   async function handleLogin(info){
     const login = await authServices.login(info)
-    console.log(login)
+    setUser(login.user)
+    console.log(login, 'inloggin')
   }
   async function handleSignup(info){
     console.log(info)
@@ -44,7 +46,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header handleLogin={handleLogin} handleSignup={handleSignup}/>
+      <Header handleLogin={handleLogin} handleSignup={handleSignup} user={user}/>
       <div className="mainContain">
         <Homepage
           chores={chores}

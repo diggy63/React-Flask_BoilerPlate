@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import LoginModal from "../LoginModal/LoginModal";
 import SignupModal from "../SignupModal/Signup";
 
-export default function Header({handleLogin, handleSignup}) {
+export default function Header({ handleLogin, handleSignup, user }) {
   const [show, setShow] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
@@ -35,12 +35,29 @@ export default function Header({handleLogin, handleSignup}) {
           </Navbar.Brand>
           <Navbar.Collapse className="justify-content-end">
             <Nav>
-              <Nav.Link>
+              {user.length > 0 ? (
+                <>
+                  <Navbar.Text>Sign in as: {user}</Navbar.Text>
+                  <Nav.Link>
+                    <Button onClick={handleShowSignup}> Logout </Button>
+                  </Nav.Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link>
+                    <Button onClick={handleShow}> Log in </Button>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <Button onClick={handleShowSignup}> Sign Up </Button>
+                  </Nav.Link>
+                </>
+              )}
+              {/* <Nav.Link>
                 <Button onClick={handleShow}> Log in </Button>
               </Nav.Link>
               <Nav.Link>
                 <Button onClick={handleShowSignup}> Sign Up </Button>
-              </Nav.Link>
+              </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -50,7 +67,7 @@ export default function Header({handleLogin, handleSignup}) {
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LoginModal handleLogin={handleLogin}/>
+          <LoginModal handleLogin={handleLogin} />
         </Modal.Body>
       </Modal>
       <Modal show={showSignup} onHide={handleCloseSignup} animation={false}>
@@ -58,7 +75,7 @@ export default function Header({handleLogin, handleSignup}) {
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SignupModal handleSignup={handleSignup}/>
+          <SignupModal handleSignup={handleSignup} />
         </Modal.Body>
       </Modal>
     </>

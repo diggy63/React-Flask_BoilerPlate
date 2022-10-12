@@ -23,10 +23,14 @@ export function login(info) {
       "Content-Type": "application/json",
     },
   }).then((resp) => {
-    if (resp.ok) return resp.json();
+    if (resp.ok){
+      return resp.json();
+    } 
     throw new Error("could not login");
-  }).then((data) =>{
+  })
+  .then((data) =>{
     tokenServices.setToken(data.access_token)
+    return data
   })
 }
 

@@ -16,8 +16,8 @@ def login():
         print('not auth')
         return jsonify({'error':'login error check email or password'})
 
-    access_token = create_access_token(identity=user.name)
-    response = {"access_token":access_token}
+    access_token = create_access_token(identity=user.id)
+    response = {"access_token":access_token,"user":user.name}
     return response
 
 
