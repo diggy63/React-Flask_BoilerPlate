@@ -44,23 +44,30 @@ function App() {
       console.log('worked')
       return true
     }
-    // setUser({'user':login.user, 'user_id':login.user_id})
   }
   async function handleSignup(info){
-    console.log(info)
     const signup = await authServices.signup(info)
+    if(signup.error){
+      return false
+    }else{
+      findUser()
+      return true
+    }
   }
-  function closeModal(){
 
+  async function userLogout(){
+    const logger  = await authServices.logout()
+    findUser()
   }
 
   async function findUser(){
     const user = await userServices.getUser()
+    console.log(user)
     setUser(user)
   }
   return (
     <div className="App">
-      <Header handleLogin={handleLogin} handleSignup={handleSignup} user={user} closeModal={closeModal}/>
+      <Header handleLogin={handleLogin} handleSignup={handleSignup} user={user} userLogout={userLogout}/>
       <div className="mainContain">
         <Homepage
           user={user}

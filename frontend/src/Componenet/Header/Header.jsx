@@ -10,7 +10,9 @@ import Form from "react-bootstrap/Form";
 import LoginModal from "../LoginModal/LoginModal";
 import SignupModal from "../SignupModal/Signup";
 
-export default function Header({ handleLogin, handleSignup, user, closeModal }) {
+import tokenServices from "../../Utils/tokenServices";
+
+export default function Header({ handleLogin, handleSignup, user, userLogout }) {
   const [show, setShow] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
@@ -19,6 +21,9 @@ export default function Header({ handleLogin, handleSignup, user, closeModal }) 
   const handleCloseSignup = () => setShowSignup(false);
   const handleShowSignup = () => setShowSignup(true);
 
+  function logUserOut(){
+    userLogout()
+  }
   return (
     <>
       <Navbar bg="dark" variant="dark">
@@ -35,14 +40,14 @@ export default function Header({ handleLogin, handleSignup, user, closeModal }) 
           </Navbar.Brand>
           <Navbar.Collapse className="justify-content-end">
             <Nav>
-              {/* {user.length > 0 ? (
+              {user ? (
                 <>
-                  <Navbar.Text>Sign in as: {user}</Navbar.Text>
+                  <Navbar.Text>Signed in as: {user.name}</Navbar.Text>
                   <Nav.Link>
-                    <Button onClick={handleShowSignup}> Logout </Button>
+                    <Button onClick={logUserOut}> Logout </Button>
                   </Nav.Link>
                 </>
-              ) : ( */}
+              ) : (
                 <>
                   <Nav.Link>
                     <Button onClick={handleShow}> Log in </Button>
@@ -51,13 +56,7 @@ export default function Header({ handleLogin, handleSignup, user, closeModal }) 
                     <Button onClick={handleShowSignup}> Sign Up </Button>
                   </Nav.Link>
                 </>
-              {/* )} */}
-              {/* <Nav.Link>
-                <Button onClick={handleShow}> Log in </Button>
-              </Nav.Link>
-              <Nav.Link>
-                <Button onClick={handleShowSignup}> Sign Up </Button>
-              </Nav.Link> */}
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -75,7 +74,7 @@ export default function Header({ handleLogin, handleSignup, user, closeModal }) 
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SignupModal handleSignup={handleSignup} />
+          <SignupModal handleSignup={handleSignup} handleCloseSignup={handleCloseSignup} />
         </Modal.Body>
       </Modal>
     </>

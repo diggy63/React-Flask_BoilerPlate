@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function SignupModal({ handleSignup }) {
+function SignupModal({ handleSignup, handleCloseSignup }) {
   const [signupInfo, setSignupInfo] = useState({
     email: "",
     password: "",
@@ -16,8 +16,12 @@ function SignupModal({ handleSignup }) {
       [e.target.name]: e.target.value,
     });
   }
-  function handleSubmit() {
-    handleSignup(signupInfo);
+  async function handleSubmit() {
+    const ans = await handleSignup(signupInfo);
+    if(ans){
+      handleCloseSignup()
+    }
+
   }
   return (
     <Form>

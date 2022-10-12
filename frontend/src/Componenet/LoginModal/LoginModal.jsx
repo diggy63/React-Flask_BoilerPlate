@@ -17,7 +17,6 @@ function LoginModal({handleLogin, handleClose}) {
     }
     async function handleSubmit(){
         const ans = await handleLogin(loginInfo)
-        console.log(ans)
         if(ans){
           handleClose()
         }

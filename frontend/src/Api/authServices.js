@@ -9,10 +9,12 @@ export function signup(info) {
       "Content-Type": "application/json",
     },
   }).then((resp) => {
-    console.log(resp)
     if (resp.ok) return resp.json();
-    throw new Error("could sign up");
-  });
+    throw new Error("could not sign up");
+  }).then((data) =>{
+    tokenServices.setToken(data.access_token)
+    return data
+  })
 }
 
 export function login(info) {
@@ -34,18 +36,6 @@ export function login(info) {
   })
 }
 
-// export function getUser(info) {
-//   return fetch(`auth/login`, {
-//     method: "GET",
-//     body: JSON.stringify(info),
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   }).then((resp) => {
-//     if (resp.ok){
-//       return resp.json();
-//     } 
-//     throw new Error("could not find user");
-//   })
-// }
-
+export function logout(){
+  tokenServices.removeToken()
+}

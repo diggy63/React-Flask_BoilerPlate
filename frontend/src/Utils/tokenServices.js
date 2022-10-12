@@ -17,10 +17,15 @@ function getToken(){
   }
 }
 
+  function removeToken(){
+    localStorage.removeItem("token");
+  }
+
 
 const tokenServices = {
   setToken,
   getToken,
+  removeToken
 }
 
 export default tokenServices

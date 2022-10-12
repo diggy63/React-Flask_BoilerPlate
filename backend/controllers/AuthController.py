@@ -13,11 +13,10 @@ def login():
     user = User.query.filter_by(email=email).first()
     
     if not user or not check_password_hash(user.password, password):
-        print('not auth')
         return jsonify({'error':'login error check email or password'})
 
     access_token = create_access_token(identity=user.id)
-    response = {"access_token":access_token,"user":user.name, 'user_id':user.id}
+    response = {"access_token":access_token}
     return response
 
 
@@ -35,8 +34,9 @@ def signup():
     
     db.session.add(new_user)
     db.session.commit()
-    
-    return jsonify({"new_user":"created"})
+    access_token = create_access_token(identity=new_user.id)
+    response = {"access_token":access_token}
+    return response
 
 def logout():
     return jsonify({'action':'logout'})
