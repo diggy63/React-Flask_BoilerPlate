@@ -15,6 +15,7 @@ from models.User import User
 
 from routes.chore_bp import chore_bp
 from routes.auth_bp import auth_bp
+from routes.user_bp import user_bp
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='')
 CORS(app)
@@ -22,6 +23,7 @@ app.config.from_object('config')
 app.config['SECRET_KEY'] = 'diggy'
 app.config["JWT_SECRET_KEY"] = "JWT"
 jwt = JWTManager(app)
+
 
     
 
@@ -32,6 +34,7 @@ migrate = Migrate(app,db)
 
 app.register_blueprint(chore_bp, url_prefix='/chore')
 app.register_blueprint(auth_bp,url_prefix='/auth')
+app.register_blueprint(user_bp,url_prefix='/user')
 
 
 

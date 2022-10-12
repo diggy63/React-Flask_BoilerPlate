@@ -10,3 +10,9 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(1000))
     chores = db.relationship("Chore", backref='user')
     
+    def serialize(self):
+        return{
+            'id': self.id,
+            'email': self.email,
+            'name': self.name,
+        }

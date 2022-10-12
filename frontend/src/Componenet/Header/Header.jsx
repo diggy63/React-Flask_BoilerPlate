@@ -35,14 +35,14 @@ export default function Header({ handleLogin, handleSignup, user }) {
           </Navbar.Brand>
           <Navbar.Collapse className="justify-content-end">
             <Nav>
-              {user.length > 0 ? (
+              {/* {user.length > 0 ? (
                 <>
                   <Navbar.Text>Sign in as: {user}</Navbar.Text>
                   <Nav.Link>
                     <Button onClick={handleShowSignup}> Logout </Button>
                   </Nav.Link>
                 </>
-              ) : (
+              ) : ( */}
                 <>
                   <Nav.Link>
                     <Button onClick={handleShow}> Log in </Button>
@@ -51,7 +51,7 @@ export default function Header({ handleLogin, handleSignup, user }) {
                     <Button onClick={handleShowSignup}> Sign Up </Button>
                   </Nav.Link>
                 </>
-              )}
+              {/* )} */}
               {/* <Nav.Link>
                 <Button onClick={handleShow}> Log in </Button>
               </Nav.Link>

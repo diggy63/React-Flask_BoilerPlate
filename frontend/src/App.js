@@ -4,12 +4,15 @@ import Homepage from "./pages/Homepage/Homepage";
 import Header from "./Componenet/Header/Header";
 import * as choreServices from "../src/Api/choreServices";
 import * as authServices from '../src/Api/authServices'
+import * as userServices from '../src/Api/userServices'
 
 function App() {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [chores, setChores] = useState([]);
   const [user, setUser] = useState('')
   useEffect(() => {
+    const user = userServices.getUser()
+    setUser(user)
     getAll();
   }, []);
   async function getAll() {
@@ -35,13 +38,12 @@ function App() {
   }
   async function handleLogin(info){
     const login = await authServices.login(info)
-    setUser(login.user)
-    console.log(login, 'inloggin')
+    console.log(login)
+    // setUser({'user':login.user, 'user_id':login.user_id})
   }
   async function handleSignup(info){
     console.log(info)
     const signup = await authServices.signup(info)
-    console.log(signup)
   }
 
   return (
@@ -49,6 +51,7 @@ function App() {
       <Header handleLogin={handleLogin} handleSignup={handleSignup} user={user}/>
       <div className="mainContain">
         <Homepage
+          user={user}
           chores={chores}
           handleChoreDelete={handleChoreDelete}
           addChore={addChore}

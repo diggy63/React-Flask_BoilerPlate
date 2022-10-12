@@ -34,3 +34,18 @@ export function login(info) {
   })
 }
 
+// export function getUser(info) {
+//   return fetch(`auth/login`, {
+//     method: "GET",
+//     body: JSON.stringify(info),
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   }).then((resp) => {
+//     if (resp.ok){
+//       return resp.json();
+//     } 
+//     throw new Error("could not find user");
+//   })
+// }
+

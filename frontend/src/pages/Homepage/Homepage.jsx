@@ -6,6 +6,7 @@ import Chore from "../../Componenet/Chore/Chore";
 import AddChore from "../../Componenet/AddChore/AddChore";
 
 export default function Homepage({
+  user,
   chores,
   handleChoreDelete,
   addChore,
@@ -27,7 +28,9 @@ export default function Homepage({
   });
   return (
       <div className="todoList">
+        {user}
       <ListGroup>
+        
         <div className="todo">
         <ListGroup.Item>
           <AddChore addChore={addChore} />

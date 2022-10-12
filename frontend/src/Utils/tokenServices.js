@@ -8,9 +8,19 @@ function setToken(token) {
   }
 }
 
+function getToken(){
+  let token = localStorage.getItem('token')
+  if(token){
+    return token
+  }else{
+    return false
+  }
+}
+
 
 const tokenServices = {
-  setToken
+  setToken,
+  getToken,
 }
 
 export default tokenServices
