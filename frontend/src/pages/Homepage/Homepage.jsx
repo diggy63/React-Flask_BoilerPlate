@@ -28,7 +28,6 @@ export default function Homepage({
   });
   return (
       <div className="todoList">
-        {user}
       <ListGroup>
         
         <div className="todo">

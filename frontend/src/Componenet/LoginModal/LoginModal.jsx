@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function LoginModal({handleLogin}) {
+function LoginModal({handleLogin, handleClose}) {
     const [loginInfo,setLoginInfo] = useState({
         email: '',
         password: ''
@@ -15,8 +15,12 @@ function LoginModal({handleLogin}) {
             [e.target.name]:e.target.value
         })
     }
-    function handleSubmit(){
-        handleLogin(loginInfo)
+    async function handleSubmit(){
+        const ans = await handleLogin(loginInfo)
+        console.log(ans)
+        if(ans){
+          handleClose()
+        }
     }
   return (
     <Form>

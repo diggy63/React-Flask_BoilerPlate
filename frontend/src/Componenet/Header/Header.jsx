@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import LoginModal from "../LoginModal/LoginModal";
 import SignupModal from "../SignupModal/Signup";
 
-export default function Header({ handleLogin, handleSignup, user }) {
+export default function Header({ handleLogin, handleSignup, user, closeModal }) {
   const [show, setShow] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
 
@@ -67,7 +67,7 @@ export default function Header({ handleLogin, handleSignup, user }) {
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <LoginModal handleLogin={handleLogin} />
+          <LoginModal handleLogin={handleLogin} handleClose={handleClose} />
         </Modal.Body>
       </Modal>
       <Modal show={showSignup} onHide={handleCloseSignup} animation={false}>

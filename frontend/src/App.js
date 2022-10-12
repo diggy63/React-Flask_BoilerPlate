@@ -11,8 +11,7 @@ function App() {
   const [chores, setChores] = useState([]);
   const [user, setUser] = useState('')
   useEffect(() => {
-    const user = userServices.getUser()
-    setUser(user)
+    findUser()
     getAll();
   }, []);
   async function getAll() {
@@ -38,17 +37,30 @@ function App() {
   }
   async function handleLogin(info){
     const login = await authServices.login(info)
-    console.log(login)
+    if(login.error){
+      return false
+    }else{
+      findUser()
+      console.log('worked')
+      return true
+    }
     // setUser({'user':login.user, 'user_id':login.user_id})
   }
   async function handleSignup(info){
     console.log(info)
     const signup = await authServices.signup(info)
   }
+  function closeModal(){
 
+  }
+
+  async function findUser(){
+    const user = await userServices.getUser()
+    setUser(user)
+  }
   return (
     <div className="App">
-      <Header handleLogin={handleLogin} handleSignup={handleSignup} user={user}/>
+      <Header handleLogin={handleLogin} handleSignup={handleSignup} user={user} closeModal={closeModal}/>
       <div className="mainContain">
         <Homepage
           user={user}
