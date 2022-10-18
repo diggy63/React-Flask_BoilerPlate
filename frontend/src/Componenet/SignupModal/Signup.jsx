@@ -2,8 +2,10 @@ import React, { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from 'react-bootstrap/Alert';
 
 function SignupModal({ handleSignup, handleCloseSignup }) {
+  const [message, setMessage] = useState('')
   const [signupInfo, setSignupInfo] = useState({
     email: "",
     password: "",
@@ -20,12 +22,15 @@ function SignupModal({ handleSignup, handleCloseSignup }) {
     const ans = await handleSignup(signupInfo);
     if(ans){
       handleCloseSignup()
+    }else{
+      setMessage('Email already taken')
     }
 
   }
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
+        {message === '' ? null : <Alert variant='danger'>{message}</Alert>}
         <Form.Label>name</Form.Label>
         <Form.Control
           onChange={handleChange}

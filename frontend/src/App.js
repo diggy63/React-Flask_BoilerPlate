@@ -50,6 +50,7 @@ function App() {
   async function handleSignup(info){
     const signup = await authServices.signup(info)
     if(signup.error){
+      console.log(signup)
       return false
     }else{
       findUser()
