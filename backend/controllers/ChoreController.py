@@ -1,10 +1,13 @@
 from flask import request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app import db
 
 from models.Chore import Chore
 from models.User import User
 
+
+@jwt_required()
 def getAll(id):
     user = User.query.get(id)
     chores = user.chores
@@ -17,6 +20,7 @@ def getAll(id):
     newC.sort(key=getId)
     return jsonify(newC)
 
+@jwt_required()
 def addChore(id):
     chore = request.json['chore']
     done = False
@@ -28,6 +32,7 @@ def addChore(id):
     print(newChore)
     return newChore
 
+@jwt_required()
 def updateChore(id):
     chore = Chore.query.get(id)
     uChore = request.json['chore']
@@ -35,6 +40,7 @@ def updateChore(id):
     db.session.commit()
     return formatChore(chore)
 
+@jwt_required()
 def updateDone(id):
     chore = Chore.query.get(id)
     if chore.done:
@@ -45,6 +51,7 @@ def updateDone(id):
     print(chore.done)
     return formatChore(chore)
 
+@jwt_required()
 def deleteChore(id):
     chore = Chore.query.get(id)
     if chore:

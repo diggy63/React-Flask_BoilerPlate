@@ -1,3 +1,6 @@
+import tokenServices from '../../src/Utils/tokenServices'
+
+
 export function getChores(id) {
   console.log(id)
   if(id){
@@ -5,6 +8,7 @@ export function getChores(id) {
       method: "GET",
       headers: {
         "Content-Type": "applications/json",
+        'Authorization' : 'Bearer ' + tokenServices.getToken()
       },
     })
       .then((resp) =>{
@@ -21,6 +25,7 @@ export function deleteChore(id){
     method: "DELETE",
     headers:{
       "Content-Type": "application/json",
+      'Authorization' : 'Bearer ' + tokenServices.getToken()
     }
    }).then((resp) =>{
       if(resp.ok) return resp.json();
@@ -35,6 +40,7 @@ export function addToChore(chore, user){
    body: JSON.stringify(chore),
    headers:{
      "Content-Type": "application/json",
+     'Authorization' : 'Bearer ' + tokenServices.getToken()
    }
   }).then((resp) =>{
      if(resp.ok) return resp.json();
@@ -48,6 +54,7 @@ export function updateChore(chore,id){
    body: JSON.stringify(chore),
    headers:{
      "Content-Type": "application/json",
+     'Authorization' : 'Bearer ' + tokenServices.getToken()
    }
   }).then((resp) =>{
      if(resp.ok) return resp.json();
@@ -61,6 +68,7 @@ export function updateToggleDone(id){
    body: JSON.stringify({}),
    headers:{
      "Content-Type": "application/json",
+     'Authorization' : 'Bearer ' + tokenServices.getToken()
    }
   }).then((resp) =>{
      if(resp.ok) return resp.json();
