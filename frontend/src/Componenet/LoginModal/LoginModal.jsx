@@ -2,8 +2,10 @@ import React, {useState} from 'react'
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 
 function LoginModal({handleLogin, handleClose}) {
+    const [message,setMessage] = useState('')
     const [loginInfo,setLoginInfo] = useState({
         email: '',
         password: ''
@@ -17,13 +19,19 @@ function LoginModal({handleLogin, handleClose}) {
     }
     async function handleSubmit(){
         const ans = await handleLogin(loginInfo)
+        console.log(ans)
         if(ans){
           handleClose()
+        }else{
+          setMessage('User email or password is not valid')
         }
     }
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
+        {message === '' ? null : 
+        <Alert variant='danger'>{message}</Alert>
+        }
         <Form.Label>Email address</Form.Label>
         <Form.Control onChange={handleChange} type="email" placeholder="Enter email" name="email" value={loginInfo.email} />
         <Form.Text className="text-muted">

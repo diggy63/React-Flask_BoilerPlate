@@ -39,6 +39,7 @@ function App() {
   async function handleLogin(info){
     const login = await authServices.login(info)
     if(login.error){
+      console.log(login)
       return false
     }else{
       findUser()
