@@ -1,27 +1,22 @@
 from flask import Flask , jsonify, request, send_from_directory
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 from datetime import datetime, timedelta, timezone
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
-
-db = SQLAlchemy()
-
-from models.User import User
-
+from extensions import db
 from routes.chore_bp import chore_bp
 from routes.auth_bp import auth_bp
 from routes.user_bp import user_bp
+load_dotenv()
+
+
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='')
 CORS(app)
 app.config.from_object('config')
-app.config['SECRET_KEY'] = 'diggy'
-app.config["JWT_SECRET_KEY"] = "JWT"
 jwt = JWTManager(app)
 
 

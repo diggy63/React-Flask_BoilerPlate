@@ -1,6 +1,6 @@
 import datetime
 
-from app import db
+from extensions import db
 from models.User import User
 
 class Chore(db.Model):

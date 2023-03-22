@@ -1,6 +1,6 @@
 from flask import request, jsonify, request
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+from extensions import db
 from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
 from models.User import User
